@@ -1,7 +1,7 @@
 <!DOCTYPE html><head><title>Macroeconomics and Geopolitics</title><meta http-equiv="Content-Type" charset="utf-8"><style>
 @font-face {font-family: Roboto; src: url("Roboto-Regular.ttf");}
   .c {font-size: 24px; padding: 5px 0;}
-  a  {text-decoration: none; /*margin-right: 5px; font-size: 18px;*/}
+  a  {text-decoration: none; border-radius:5px; padding-right:5px;/*margin-right: 5px; font-size: 18px;*/}
   span {display: inline-block; font-size: 18px;}
   .chan {
     width: 80px; height: 80px; vertical-align:middle; margin-right: 5px;
@@ -40,7 +40,16 @@
   .fred {background-color: #FFA500; /*color: white;*/}
   .star {height: 18px; margin-right: 5px;}
   .ms {display: inline-block; letter-spacing: 2px; font-family: cursive;/*font-variant: small-caps; font-style: italic;*/}
-  /* a:visited {color: #0000ee;} */
+  /* a:visited {color: #0000ee;}
+
+  #valuetainment:focus-visible {
+    outline: 1px solid green;
+  }
+*/
+  #valuetainment {
+    border-radius:4px;
+  }
+  :focus-visible {outline-color:#008000;}
   blockquote {
     margin-block-start: .25em;
     margin-block-end: .25em;
@@ -351,15 +360,20 @@ Adam's brain damage is permenant ☹️<br>
 <a id="yt047" href="https://www.youtube.com/watch?v=-rn3zdpMB8k" target="_blank">
   <div class="btn yt">YouTube</div>The Truth About Greenpeace w/ Dr. Patrick Moore | PBD Podcast | Ep. 171<small> (118 min) Jul 14, 2022</small></a><br>
 
+<div id="valuetainment" tabindex="1">
 <div class="c">
   <a id="yt048" href="https://www.youtube.com/c/VALUETAINMENT/videos" target="_blank">
   <img src="Valuetainment.jpg" class="chan">Valuetainment</a>
   <span><i>(Pat Bet-David)</i></span>
 </div>
 
+<a id="yt111" href="https://www.youtube.com/watch?v=X79maOTuR9k" target="_blank">
+  <div class="btn yt">YouTube</div>6 Ways to Create Generational Wealth And How To Pass It Down To Your Kids<small> (64 min) Nov 23, 2022</small></a><br>
 <a id="yt049" href="https://www.youtube.com/watch?v=RdF6N5UOxXw" target="_blank">
-  <div class="btn yt">YouTube</div>'Toxic' Masculinity, The Matrix, And Freedom w/ Patrick Bet-David Of @Valuetainment & @PBD Podcast<small> (144 min) Nov 3, 2022</small></a><br>
-
+  <div class="btn yt">YouTube</div>Who Is Patrick Bet-David?<small> (144 min) Nov 3, 2022</small></a><br>
+<a id="yt112" href="https://www.youtube.com/watch?v=6uVZW5B7gEo" target="_blank">
+  <div class="btn yt">YouTube</div>Who Is Jennifer Bet-David?<small> (35 min) Aug 23, 2022</small></a><br>
+</div>
 <!-- -->
 
 <div class="c">
@@ -731,4 +745,8 @@ I binge watch this 🙂<br>
 <a href="https://drive.google.com/file/d/1ANVx4wraJuc7OnCsXFvtxBuSFJo0L95-/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/bRg9MHo" target="_blank">All About Asset Allocation 2e - Richard Ferri (2010)</a><br>
 
-<div style="margin-bottom: 300px;">&nbsp;</div></body></html>
+<!--a id="yt112"  --  last id -->
+<div style="margin-bottom: 300px;">&nbsp;</div>
+<script>
+#valuetainment.addEventlistner("focus", e => e.target.style.borderColor = "green");
+</script></body></html>
