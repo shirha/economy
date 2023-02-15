@@ -1,0 +1,137 @@
+#!/usr/bin/perl
+# byu.pl
+#https://rsc.byu.edu/book/lectures-faith-historical-perspective
+#D:\Users\shirha\Google Drive\LDS\sites\lectures-faith-historical-perspective.whtt
+=TODO
+    1. add images/OBJ\d+.jpg
+    2. fix Ã{56}
+=cut
+use strict;
+use warnings;
+use File::Slurp;
+use File::Copy;
+use Data::Dumper;
+use Mojo::Base -strict;
+use Mojo::File;
+use Mojo::DOM qw( );
+use Encode qw( decode_utf8 encode_utf8 );
+system( 'chcp', '65001', '>', 'nul' ); # set console code page to utf8
+binmode STDOUT, ":utf8";
+sub trim { $_[0] =~ s/^\s+|\s+$//gs; $_[0] }
+
+my $htm = decode_utf8(Mojo::File->new("index.html")->slurp);   
+
+my $i = 0;
+$htm =~ s/id="ytxxx"/sprintf"id=\"yt%03d\"",++$i/ge;
+
+write_file "idtag.html", {binmode => ':utf8'}, encode_utf8(join "\n", split /\R/,$htm);
+
+
+
+__END__
+sub img { local $_ = shift;
+  s|src=".+?([^\/]+)"|src="images/$1"|;
+  $_."</img><br/>"
+}
+my $spln = "    <itemref idref=\"%s\" linear=\"yes\" />\n";
+my $mfst = "    <item id=\"%s\" href=\"%s\" media-type=\"application/xhtml+xml\" />\n";
+my $nvpt = <<eof;
+      <navPoint id=\"np%s\" playOrder=\"%s\">
+        <navLabel><text>%s</text></navLabel>
+        <content src="%s" />
+      </navPoint>\n
+eof
+
+my $foot = "</body></html>";
+my $head = <<"eof";
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><link rel="stylesheet" href="stylesheet.css" type="text/css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>%s</title></head><body id="content">
+eof
+
+my $config =  { navno => 0, chapno => 0, sectno => 0,
+    uuid     => 'b3042c4a',
+    title    => 'The Lectures on Faith in Historical Perspective',
+    author   => 'C. Wilfred Griggs',
+    pub_date => 1990,
+  subject  => 'Symposium',
+  description => <<"eof"
+The Lectures on Faith are among the oldest of LDS writings. They formed the basis for doctrinal studies in the School for the Elders during the winter of 1834–35 and ever since have been highly valued in the Church. They constitute a substantial historical and doctrinal heritage from early Restoration years. Bringing together in one volume the background, the history, the text, and an informed and stimulating commentary, this book makes a major contribution to an understanding of the subject and therefore to the reader’s efforts to live the great principle of faith in Jesus Christ.
+eof
+};
+my $path = "lectures-faith-historical-perspective";
+# don't forget to add OEBPS/cover.html
+
+my $dup = "";
+my $toc = Mojo::File->new("rsc.byu.edu/book/$path.html");
+my $dom = Mojo::DOM->new( decode_utf8($toc->slurp) );   
+print $dom->at("h2")->text;
+$dom->to_string =~ m|<p>\s+Published in (\d{4})\s+</p>|s;
+$config->{'pub_date'} = $1 if $1;
+my($nav, $man, $spl, $book);
+foreach my $url ( $dom->find("a[href^=\"../$path\"]")->each ){
+  if($url->attr('href') eq $dup){
+    print "-dup- $dup\n";
+    next ;
+  }
+  $dup = $url->attr('href');
+  my $pag = Mojo::File->new('rsc.byu.edu', substr $url->attr('href'), 1);
+  my $dom = Mojo::DOM->new( decode_utf8($pag->slurp) ); 
+  $_ = $dom->at("div.content-panel")->to_string;
+  #print Dumper $_ if $url =~ /mormonism-american-religious-art/;
+ #s|(<img.+?>)|$1</img>|gs;
+  s|(<img.+?>)|img($1)|gse;
+  # s|<strike>.+?</strike>||gs;
+  s|&amp;c\.?|etc.|gs;
+  s|<wbr>||gs;
+  # s|(etc.)( \1)+|$1|gs;
+  # s|(?!D)&amp;(?!C)|and|gs;
+  # s| and and | and |gs;
+  s|</?u>||gs;
+  s|<br>|<br/>|gs;
+  s|%e2%80%9c.html||gs;
+
+  # if(m|\xef\xbf\xbd|s){ # Ã{56} …{76} \x20\x26; chapter0 �{660} 
+  #   print "- - - invalid utf8 - - -\n";
+  # }
+  s|name(="_edn(ref)?\d+")|id$1|g;
+
+  $book .= "$_<!-- eof -->\x0a";
+  my $url   = $pag->basename;
+  my $title = trim($dom->at("h3")->text);
+  Mojo::File->new('OEBPS', $url)->spurt( join "\x0a", split /\R+/, 
+    encode_utf8( sprintf($head, $config->{title})."$_$foot") );
+  say "$title\n\t$url";
+
+  $title =~ s/D&C/D&amp;C/g;
+  $config->{navno}++;
+  $nav .= sprintf $nvpt, $config->{navno}, $config->{navno}, $title, $url;
+  $man .= sprintf $mfst, "id$config->{navno}", $url;
+  $spl .= sprintf $spln, "id$config->{navno}";
+}
+
+my %mime = (jpg => "jpeg", gif => "gif");
+foreach (glob 'OEBPS/images/*'){ #die;
+  next if /cover/;
+  s|OEBPS/||;
+  $config->{navno}++;
+  print "$_\n";
+  m/\.(jpg|gif)$/;
+  $man .= sprintf "    <item id=\"%s\" href=\"%s\" media-type=\"image/%s\"/>\n", "id$config->{navno}", $_, $mime{$1};
+}
+
+Mojo::File->new("book.html")->spurt( 
+  encode_utf8(sprintf($head,$config->{title})."$book$foot") );
+
+my $ncx = read_file "toc.ncx", {binmode => ':utf8'};
+write_file "OEBPS/toc.ncx", {binmode => ':utf8'}, join "\x0a", split /\R+/,
+  sprintf $ncx, @$config{qw/uuid title/}, $nav;
+
+#print Dumper $man;
+my $opf = read_file "content.opf", {binmode => ':utf8'};
+write_file "OEBPS/content.opf", {binmode => ':utf8'}, join "\x0a", split /\R+/, 
+  sprintf $opf, @$config{qw/uuid title author pub_date description subject/}, $man, $spl;
+
+copy "blank.epub", "The Lectures on Faith in Historical Perspective.epub"; # "$config->{title} by $config->{author}.epub";
