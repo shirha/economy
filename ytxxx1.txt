@@ -19,12 +19,15 @@ system( 'chcp', '65001', '>', 'nul' ); # set console code page to utf8
 binmode STDOUT, ":utf8";
 sub trim { $_[0] =~ s/^\s+|\s+$//gs; $_[0] }
 
-my $htm = decode_utf8(Mojo::File->new("index.html")->slurp);   
+# my $htm = decode_utf8(Mojo::File->new("index.html")->slurp);   
+my $htm = Mojo::File->new("index-old.html")->slurp;   
 
 my $i = 0;
 $htm =~ s/id="ytxxx"/sprintf"id=\"yt%03d\"",++$i/ge;
 
-write_file "idtag.html", {binmode => ':utf8'}, encode_utf8(join "\n", split /\R/,$htm);
+# write_file "idtag.html", {binmode => ':utf8'}, encode_utf8(join "\n", split /\R/,$htm);
+# write_file "index.html", {binmode => ':utf8'}, $htm;
+write_file "index.html", join "\n", split /\R/, $htm;
 
 
 
