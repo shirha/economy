@@ -40,15 +40,17 @@
   .fred {background-color: #FFA500; /*color: white;*/}
   .star {height: 18px; margin-right: 5px;}
   .ms {display: inline-block; letter-spacing: 2px; font-family: cursive;/*font-variant: small-caps; font-style: italic;*/}
+  #list {display:none;}
   /* a:visited {color: #0000ee;}
 
   #valuetainment:focus-visible {
     outline: 1px solid green;
   }
 */
-  #valuetainment {
-    border-radius:4px;
-  }
+  #valuetainment {border-radius:4px;}
+  .collapsible {/*cursor: url(document5.ico),auto;*/ font-size: 1.5em; font-weight: bold; margin: 20px 0 5px 5px; 
+    border-radius: 12px; border: 2px solid #c0c0c0; padding: 5px 20px 5px 20px; /*background-color: #e3efc7;*/}
+  /*button img {padding-left:5px;}*/
   :focus-visible {outline-color:#008000;}
   blockquote {
     margin-block-start: .25em;
@@ -149,7 +151,7 @@
   <div class="btn yt">YouTube</div>Lyn Alden Bonus Question<small> (6 min)</small></a><br>
 
 <a id="yt003" href="https://www.youtube.com/watch?v=9XIXpi8yKsE" target="_blank">
-  <div class="btn yt">YouTube</div>2023 Bitcoin & Macro Outlook with Lyn Alden<small> (63 min) jan 3, 2023</small></a><br>
+  <div class="btn yt">YouTube</div>2023 Bitcoin & Macro Outlook with Lyn Alden<small> (63 min) Jan 3, 2023</small></a><br>
 
 <a id="yt004" href="https://www.youtube.com/watch?v=im071GMdmkw" target="_blank">
   <div class="btn yt">YouTube</div>The Bursting Of The Sovereign Bond Bubble | Lyn Alden<small> (75 min) Oct 27, 2022</small></a><br>
@@ -188,6 +190,9 @@
 
 <a href="https://drive.google.com/file/d/1YnI7vMsxlhr3FJRndQixd3m_A6DYHbvS/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://www.amazon.com/dp/B09C65JNPF/" target="_blank">The End of the World is Just the Beginning</a><br>
+
+<a id="yt012" href="https://www.youtube.com/watch?v=_bDYfkpEFvg" target="_blank">
+  <div class="btn yt">YouTube</div><img src="redstar.png" class="star">Peter Zeihan - No One is Telling You The Truth, Actually What's Happening In Canada<small> (9 min) Feb 19, 2023</small></a><br>
 
 <a id="yt012" href="https://www.youtube.com/watch?v=ed_sFDnHLU4" target="_blank">
   <div class="btn yt">YouTube</div><img src="redstar.png" class="star">Manitoba Full Webinar | Peter Zeihan Oct 2022<small> (61 min) Nov 12, 2022</small></a><br>
@@ -302,6 +307,9 @@ New Great Depression, The - James Rickards (2021)<br>
 <!-- -->
 
 <div class=e>Vivek Ramaswamy</div><br>
+
+<a id="yt114" href="https://www.youtube.com/watch?v=1T7HRNCIKFc" target="_blank">
+   <div class="btn yt">YouTube</div>Vivek Ramaswamy at CPAC 2023: 'I'm all in on America first'<small> (19 min) Mar 3, 2023</small></a><br>
 
 <a id="yt036" href="https://www.youtube.com/watch?v=DHA-mcXdW3E" target="_blank">
    <div class="btn yt">YouTube</div><img src="redstar.png" class="star">Vivek Ramaswamy | PBD Podcast | Ep. 226<small> (98 min) Jan 13, 2023</small></a><br>
@@ -585,6 +593,9 @@ Adam's brain damage is permenant ☹️<br>
   <div class="tags btc">Bitcoin</div>
 </div>
 
+<a id="yt115" href="https://www.youtube.com/watch?v=QQtgpC1I_JU" target="_blank">
+  <div class="btn yt">YouTube</div>A Deep Dive into "Deep Politics" with Whitney Webb (WiM274)<small> (94 min) Feb 16, 2023</small></a><br>
+
 <a id="yt089" href="https://www.youtube.com/watch?v=p57elyEWw8U" target="_blank">
   <div class="btn yt">YouTube</div><img src="redstar.png" class="star">Is The American Dream Dead? w/ Raoul Pal<small> (243 min) Oct 30, 2022</small></a><br>
 
@@ -751,8 +762,35 @@ I binge watch this 🙂<br>
 <a href="https://drive.google.com/file/d/1ANVx4wraJuc7OnCsXFvtxBuSFJo0L95-/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/bRg9MHo" target="_blank">All About Asset Allocation 2e - Richard Ferri (2010)</a><br>
 
-<!--a id="yt113"  --  last id -->
+<button class="collapsible">Sorted Video List <img src="document5.png"></button><div id=list></div>
+
+<!--a id="yt115"  --  last id -->
+
 <div style="margin-bottom: 300px;">&nbsp;</div>
 <script>
-#valuetainment.addEventlistner("focus", e => e.target.style.borderColor = "green");
+document.getElementById('valuetainment').addEventListener("focus", e => e.target.style.borderColor = "green");
+let a = document.querySelectorAll('a'), obj = {};
+for (let i = 0; i < a.length; i++){
+  console.log(a[i].id);
+  let data = a[i].querySelector('small');
+  if(data){
+    console.log(data.outerHTML);
+    let result = data.outerHTML.match(/\w{3} \d+, \d{4}/);
+    if(result){
+      obj[Date.parse(result)] = a[i].outerHTML;
+    }
+  }
+}
+let list = document.getElementById('list');
+Object.keys(obj).sort().reverse().forEach(function(k){
+  list.innerHTML += `${obj[k]}<br>`;
+});
+let coll = document.getElementsByClassName("collapsible");
+coll[0].addEventListener("click", function() {
+  if (list.style.display == "block") {
+    list.style.display = "none";
+  } else {
+    list.style.display = "block";
+  }
+});
 </script></body></html>
