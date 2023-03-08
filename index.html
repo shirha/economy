@@ -130,11 +130,11 @@
   <div class="btn econ">PrimeVid</div>The Prize: An Epic Quest for Oil, Money, and Power<small> (8 episodes <font color=#008000>&#215;</font> 45 min)</small></a><br>
 
 <a id="yt001" href="https://www.youtube.com/watch?v=L9aye4wQ8Ok" target="_blank">
-  <div class="btn yt">YouTube</div>The Currency Reset Will Wipe Out Creditors and Usher in CBDCs. Part 1.<small> (37 min)</small></a>
+  <div class="btn yt">YouTube</div>The Currency Reset Will Wipe Out Creditors and Usher in CBDCs. Part 1.<small> (37 min) Nov 24, 2022</small></a>
  — <a id="yt002" href="https://www.youtube.com/watch?v=2hGxbSYQzlE" target="_blank">Part 2.<small> (78 min)</small></a><br>
 
 <a href="https://www.bitchute.com/video/oSiQt4pC3QQ8/" target="_blank">
-  <div class="btn yt">BitChute</div><img src="redstar.png" class="star">Big Data, Transhumanism And Why The Singularity May Be Faked- Interview With Whitney Webb<small> (89 min)</small></a><br>
+  <div class="btn yt">BitChute</div><img src="redstar.png" class="star">Big Data, Transhumanism And Why The Singularity May Be Faked- Interview With Whitney Webb<small> (89 min) Jan 18, 2023</small></a><br>
 
 <div class=e>Lyn Alden</div><br>
 
@@ -426,6 +426,9 @@ Adam's brain damage is permenant ☹️<br>
 <a href="https://www.whatbitcoindid.com/guests/" target="_blank">
   <div class="btn web">Website</div>Guests</a><br>
 
+<a id="yt117" href="https://www.youtube.com/watch?v=TvMmbUyR2O4" target="_blank">
+  <div class="btn yt">YouTube</div><img src="redstar.png" class="star">How the Fed “Went Broke” with Lyn Alden<small> (67 min) Mar 6, 2023</small></a><br>
+
 <a id="yt057" href="https://www.youtube.com/watch?v=DnHOxZgvdWM" target="_blank">
   <div class="btn yt">YouTube</div><img src="redstar.png" class="star">How the IMF & World Bank Exploit Poor Countries with Alex Gladstein<small> (88 min) Nov 30, 2022</small></a><br>
 
@@ -465,6 +468,9 @@ Adam's brain damage is permenant ☹️<br>
   <img src="Anthony Pompliano.jpg" class="chan">Anthony Pompliano</a>
   <div class="tags btc">Bitcoin</div>
 </div>
+
+<a id="yt118" href="https://www.youtube.com/watch?v=4raLwEfebWs" target="_blank">
+  <div class="btn yt">YouTube</div><img src="redstar.png" class="star">Broke To Financially Free In 4 Years | Kris Krohn<div class="tags re">Real Estate</div><small> (69 min) Mart 7, 2023</small></a><br>
 
 <a id="yt066" href="https://www.youtube.com/watch?v=4NX9-Q-ohIY" target="_blank">
   <div class="btn yt">YouTube</div>Millionaire Poker Star Talks Elon Musk, Dan Bilzerian, and Dying With Zero | Bill Perkins<small> (122 min) Feb 6, 2023</small></a><br>
@@ -592,6 +598,9 @@ Adam's brain damage is permenant ☹️<br>
   <div class="tags econ">Austrian Economics</div>
   <div class="tags btc">Bitcoin</div>
 </div>
+
+<a id="yt116" href="https://www.youtube.com/watch?v=r9g1J4_sL9M" target="_blank">
+  <div class="btn yt">YouTube</div>The Philosophy of Modern Survivalism with Jack Spirko (WiM279)<div class="tags re">Survivalist</div><small> (83 min) Feb 27, 2023</small></a><br>
 
 <a id="yt115" href="https://www.youtube.com/watch?v=QQtgpC1I_JU" target="_blank">
   <div class="btn yt">YouTube</div>A Deep Dive into "Deep Politics" with Whitney Webb (WiM274)<small> (94 min) Feb 16, 2023</small></a><br>
@@ -741,6 +750,9 @@ I binge watch this 🙂<br>
 <a href="https://drive.google.com/file/d/1a_w8Y-mWKGtxS1SF_LsP7vSraFTu1nnE/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/7YtHuIn" target="_blank">The Psychology of Money - Morgan Housel (2020)</a><br>
 
+<a href="https://drive.google.com/file/d/1vr4Yce8kBnD-DKNk39xg0bxJF8B-kiOx/view?usp=share_link">
+  <div class="lnk epub">Epub</div></a><a href="https://a.co/d/iccqamI" target="_blank">Have it All_ The Roadmap to Becoming a Self-Made Millionaire - Kris Krohn (2022)</a><br>
+
 <a href="https://drive.google.com/file/d/19gQtBVNIPHe9m5jaYIpFMb0VfF79Mw9n/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/5Zgik33" target="_blank">A Random Walk Down Wall Street 12e - Burton G. Malkiel (2019)</a><br>
 
@@ -764,11 +776,11 @@ I binge watch this 🙂<br>
 
 <button class="collapsible">Sorted Video List <img src="document5.png"></button><div id=list></div>
 
-<!--a id="yt115"  --  last id -->
-
 <div style="margin-bottom: 300px;">&nbsp;</div>
 <script>
-document.getElementById('valuetainment').addEventListener("focus", e => e.target.style.borderColor = "green");
+document.getElementById('valuetainment')
+  .addEventListener("focus", e => e.target.style.borderColor = "green");
+
 let a = document.querySelectorAll('a'), obj = {};
 for (let i = 0; i < a.length; i++){
   console.log(a[i].id);
@@ -781,16 +793,19 @@ for (let i = 0; i < a.length; i++){
     }
   }
 }
-let list = document.getElementById('list');
+const list = document.getElementById('list');
+const cssObj = window.getComputedStyle(list, null);
 Object.keys(obj).sort().reverse().forEach(function(k){
   list.innerHTML += `${obj[k]}<br>`;
 });
+console.log('ojb.length=',Object.keys(obj).length);
 let coll = document.getElementsByClassName("collapsible");
 coll[0].addEventListener("click", function() {
-  if (list.style.display == "block") {
+  if (cssObj.getPropertyValue('display') == "block") {
     list.style.display = "none";
   } else {
     list.style.display = "block";
   }
 });
+<!--a id="yt118"  --  last id -->
 </script></body></html>
