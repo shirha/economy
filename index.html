@@ -789,7 +789,8 @@ for (let i = 0; i < a.length; i++){
     console.log(data.outerHTML);
     let result = data.outerHTML.match(/\w{3} \d+, \d{4}/);
     if(result){
-      obj[Date.parse(result)] = a[i].outerHTML;
+      let anchor = a[i].outerHTML.replace(/ id="yt\d+"/,'');
+      obj[Date.parse(result)] = anchor; // a[i].outerHTML;
     }
   }
 }
