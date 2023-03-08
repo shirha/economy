@@ -47,7 +47,7 @@
     outline: 1px solid green;
   }
 */
-  #valuetainment {border-radius:4px;}
+  .focus {border-radius:4px;}
   .collapsible {/*cursor: url(document5.ico),auto;*/ font-size: 1.5em; font-weight: bold; margin: 20px 0 5px 5px; 
     border-radius: 12px; border: 2px solid #c0c0c0; padding: 5px 20px 5px 20px; /*background-color: #e3efc7;*/}
   /*button img {padding-left:5px;}*/
@@ -371,7 +371,7 @@ Adam's brain damage is permenant ☹️<br>
 <a id="yt047" href="https://www.youtube.com/watch?v=-rn3zdpMB8k" target="_blank">
   <div class="btn yt">YouTube</div>The Truth About Greenpeace w/ Dr. Patrick Moore | PBD Podcast | Ep. 171<small> (118 min) Jul 14, 2022</small></a><br>
 
-<div id="valuetainment" tabindex="1">
+<div class="focus" tabindex="1">
 <div class="c">
   <a id="yt048" href="https://www.youtube.com/c/VALUETAINMENT/videos" target="_blank">
   <img src="Valuetainment.jpg" class="chan">Valuetainment</a>
@@ -750,8 +750,8 @@ I binge watch this 🙂<br>
 <a href="https://drive.google.com/file/d/1a_w8Y-mWKGtxS1SF_LsP7vSraFTu1nnE/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/7YtHuIn" target="_blank">The Psychology of Money - Morgan Housel (2020)</a><br>
 
-<a href="https://drive.google.com/file/d/1vr4Yce8kBnD-DKNk39xg0bxJF8B-kiOx/view?usp=share_link">
-  <div class="lnk epub">Epub</div></a><a href="https://a.co/d/iccqamI" target="_blank">Have it All_ The Roadmap to Becoming a Self-Made Millionaire - Kris Krohn (2022)</a><br>
+<div id="rl02" class="focus" tabindex="2"><a href="https://drive.google.com/file/d/1vr4Yce8kBnD-DKNk39xg0bxJF8B-kiOx/view?usp=share_link">
+  <div class="lnk epub">Epub</div></a><a href="https://a.co/d/iccqamI" target="_blank">Have it All_ The Roadmap to Becoming a Self-Made Millionaire - Kris Krohn (2022)</a></div>
 
 <a href="https://drive.google.com/file/d/19gQtBVNIPHe9m5jaYIpFMb0VfF79Mw9n/view?usp=share_link">
   <div class="lnk epub">Epub</div></a><a href="https://a.co/d/5Zgik33" target="_blank">A Random Walk Down Wall Street 12e - Burton G. Malkiel (2019)</a><br>
@@ -778,10 +778,11 @@ I binge watch this 🙂<br>
 
 <div style="margin-bottom: 300px;">&nbsp;</div>
 <script>
-document.getElementById('valuetainment')
-  .addEventListener("focus", e => e.target.style.borderColor = "green");
-
-let a = document.querySelectorAll('a'), obj = {};
+let a = document.querySelectorAll('.focus');
+for (let i = 0; i < a.length; i++){
+  a[i].addEventListener("focus", e => e.target.style.borderColor = "green");
+}
+    a = document.querySelectorAll('a'), obj = {};
 for (let i = 0; i < a.length; i++){
   console.log(a[i].id);
   let data = a[i].querySelector('small');
