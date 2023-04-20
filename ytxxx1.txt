@@ -19,6 +19,13 @@ system( 'chcp', '65001', '>', 'nul' ); # set console code page to utf8
 binmode STDOUT, ":utf8";
 sub trim { $_[0] =~ s/^\s+|\s+$//gs; $_[0] }
 
+my($i, $htm) = (0, Mojo::File->new("index.html")->slurp);
+foreach(sort $htm =~ /id="yt(\d+)"/g){
+  say sprintf"%3d: %s", ++$i, $_;
+}
+__END__
+
+
 # my $htm = decode_utf8(Mojo::File->new("index.html")->slurp);   
 my $htm = Mojo::File->new("index-old.html")->slurp;   
 
