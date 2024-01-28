@@ -56,8 +56,8 @@ async function getPrice(stock){
 (async () => {
   let k = Object.keys(db)[0], grand = 0;
   for (const q of db[k]) { // quote-short
-    let price = q.price;
-  //let price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
+  //let price = q.price;
+    let price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
     let shares = eval(q.shares);
     let amount = price * shares;
     grand += amount;
