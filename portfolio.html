@@ -8,15 +8,17 @@
   <link rel="shortcut icon" type="image/png" href="favicon-512.png"-->
   <title>Portfolio Tracker</title>
 <style>
-#container {display: block; max-width: 480px; width: 100%;} /*calc(100% - 20px);}*/
-th {text-align: left;} 
-td:not(:first-child) {text-align: right;}
+  #container {font-size: 2em; font-family: sans-serif;}
+  th {text-align: left;}
+  td, th {padding: 0 5px; border-radius: 5px;}
+  td:not(#f *) {border: 1px solid #ddd;}
+  td:not(:first-child) {text-align: right;}
+  @media only screen and (max-width: 500px) {
+    #container {font-size: 6.5vw;}
+  }
 </style></head>
-<body>
-<div id="container"></div>
-
+<body><div id="container"></div>
 <script>
-
 // "XAU":"https://www.kitco.com/price/precious-metals/gold",
 // "IAU":"https://finance.yahoo.com/quote/IAU",
 let db = {"2024-01-27":[
@@ -54,18 +56,16 @@ async function getPrice(stock){
 (async () => {
   let k = Object.keys(db)[0], grand = 0;
   for (const q of db[k]) { // quote-short
-    // let price = q.price;
-    let price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
+    let price = q.price;
+  //let price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
     let shares = eval(q.shares);
     let amount = price * shares;
     grand += amount;
     htm += `<tr><td>${q.stock}</td><td>${price.toFixed(2)}</td><td>${shares.toFixed(0)}</td><td>${amount.toFixed(0)}</td></tr>\n`;
   }
-  document.getElementById("container").innerHTML += htm + `<tr><td colspan="3"><td>${grand.toFixed(0)}</td></tr></table>`;
+  document.getElementById("container").innerHTML += htm + `<tr id=f><td colspan="3"><td><b>${grand.toFixed(0)}</b></td></tr></table>`;
   // localStorage.setItem("portfolio", JSON.stringify(db));
 })();
 </script>
 </body>
 </html>
-
-
