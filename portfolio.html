@@ -8,25 +8,30 @@
   <link rel="shortcut icon" type="image/png" href="favicon-512.png"-->
   <title>Portfolio Tracker</title>
 <style>
-  #container {font-size: 2em; font-family: sans-serif;}
+  #container {font-size: 24px; font-family: sans-serif;}
+  input      {font-size: 20px; margin-left: 5px;}  
+  td[colspan="3"] {padding:0;} /* text-align: center; */
+  a {text-decoration: none; padding: 0 5px; font-size: smaller; color: #AA336A;
+    background-color: #eee; border-radius: 5px; border: 1px solid #AA336A;}
   th {text-align: left;}
   td, th {padding: 0 5px; border-radius: 5px;}
   td:not(#f *) {border: 1px solid #ddd;}
   td:not(:first-child) {text-align: right;}
   @media only screen and (max-width: 500px) {
     #container {font-size: 6.5vw;}
+    input      {font-size: 20px;}  
   }
 </style></head>
 <body><div id="container"></div>
 <script>
 // "XAU":"https://www.kitco.com/price/precious-metals/gold",
-// "IAU":"https://finance.yahoo.com/quote/IAU",
-let db = {"2024-01-27":[
-  {"stock":"FBTC", "price":36.75, "shares":"2912.933+2893.605+2895.289"}, // =8,701.827
+// "IAU":"https://finance.yahoo.com/quote/IAU",                   ᵇᵗᶜ ᵖᵉʳ ˢʰᵃʳᵉ
+let db = {"2024-01-27":[                      // 36.75 / 41472.21 = .000886 * 8701.827 = 7.7 
+  {"stock":"FBTC", "price":36.75, "shares":"2912.933+2893.605+2895.289"}, // =8701.827 
   {"stock":"IBIT", "price":23.99, "shares":"6978.879"}, // 4.037*41472.21/23.99=6978.879
   {"stock":"IAU",  "price":38.18, "shares":"1692.027"}, // 32*2018.80/38.18=1692.027
   {"stock":"SLV",  "price":20.86, "shares":"1504.834"}, // 1378*22.78/20.86=1504.834
-  {"stock":"Cash", "price":1.00,  "shares":"385364.84"}
+  {"stock":"Cash", "price":0.00,  "shares":"385364.84"}
 ]};
 
 // if(localStorage.getItem("portfolio") === null){ 
@@ -38,7 +43,8 @@ let tzoffset = new Date().getTimezoneOffset() * 60000, //time-zone offset in mil
   today = new Date(Date.now() - tzoffset).toISOString().split('T')[0],
   htm = `<table><tr><th colspan="4">${today}</th></tr>\n`,
   url = 'https://financialmodelingprep.com/api/v3',
-  token = 'T4uHDd3NTBuaDvQqXshP6a2vJaH6l56H',
+  fmp = 'https://site.financialmodelingprep.com/developer/docs/dashboard',
+  token = localStorage.getItem("fmp-token"),
   myHeaders = new Headers(),
   requestOptions = {
     method: 'GET',
@@ -54,18 +60,34 @@ async function getPrice(stock){
 }
 
 (async () => {
-  let k = Object.keys(db)[0], grand = 0;
+  let k = Object.keys(db)[0], grand = 0, price;
   for (const q of db[k]) { // quote-short
-  //let price = q.price;
-    let price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
+    if(token === null){
+      price = q.price;
+    }else{
+      price = q.stock == 'Cash' ? 1 : await getPrice(q.stock).catch(error => console.log('error', error));
+    }
     let shares = eval(q.shares);
     let amount = price * shares;
     grand += amount;
     htm += `<tr><td>${q.stock}</td><td>${price.toFixed(2)}</td><td>${shares.toFixed(0)}</td><td>${amount.toFixed(0)}</td></tr>\n`;
   }
-  document.getElementById("container").innerHTML += htm + `<tr id=f><td colspan="3"><td><b>${grand.toFixed(0)}</b></td></tr></table>`;
+  let cap = '<a href="https://8marketcap.com/" target="_blank">Market Cap</a>';
+  let tkn = `<a href="${fmp}" target="_blank">FMP token</a><input type=text size=6>`;
+  document.getElementById("container").innerHTML += htm + 
+    `<tr id=f><td id=tkn colspan="3">${cap}<td><b>${grand.toFixed(0)}</b></td></tr></table>`;
+  if(token === null){
+    document.getElementById("tkn").innerHTML = tkn;
+    document.querySelector("input").addEventListener('change', e => {
+      if(/[a-z\d]{32}/i.test(e.target.value)){
+        localStorage.setItem("fmp-token", e.target.value);
+        location.reload();
+      }
+    });
+  }  
   // localStorage.setItem("portfolio", JSON.stringify(db));
 })();
 </script>
 </body>
 </html>
+
