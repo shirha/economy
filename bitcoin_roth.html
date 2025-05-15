@@ -9,7 +9,7 @@
 <style type="text/css">
 	* {font-family: sans-serif;}
 	#container {
-		max-width:735px;
+		max-width:600px;
 		display:inline-block;
 		font-size: 12px;
 	}
@@ -45,7 +45,6 @@ If you notice, the average currency span is 94 years. The US dollar presently ha
 <p>Open a Roth IRA at Fidelity and Dollar Cost Average (DCA) the <a href="https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol=FBTC" target="_blank">FBTC</a> ETF at $700 / mo (up to a max of $8000 / yr). If you struggle to invest $700 / mo, then quit the pool league. Think: "⅓ taxes, ⅓ savings and ⅓ living expenses". The reason you want to use a Roth IRA is because all the gains are tax free! but you are limited to $8000 / yr in 2025 if you are over 50.</p>
 <p>Bitcoin has a 4 year cycle because of the <a href="https://www.investopedia.com/bitcoin-halving-how-this-time-is-different-8624717" target="_blank">"Halving"</a>. About 6 months before the halving is the beginning of a two year Bull cycle followed by a 2 year Bear cycle. The last halving happended in April of 2024 so we are in the second year of the Bitcoin Bull cycle. After September the price may begin to drop which means you get to buy more BTC with each $700 until the price exceeds the current price again.</p>
 <p>The chart below estimates the BTC price every 4 years using 3 different <a href="https://www.investopedia.com/investing/compound-annual-growth-rate-what-you-should-know/" target="_blank">CAGRs</a>. The 'Annuity' estimates your Roth value every 4 years if you invest $700 / mo. You should strive to save for 12 years to the 6/2037 mark. I saved 4 times as much for 17 years in <a href="https://investor.vanguard.com/investment-products/mutual-funds/profile/vtsax">VTSAX</a> and didn't achieve this 12 year Base case mark. See <a href="https://charts.bitbo.io/sma1458/">here</a> and <a href="https://studio.glassnode.com/charts/6efab14b-d8ab-40a0-5be6-7549dfd04104">here</a> and <a href="https://casebitcoin.com/charts">here</a>.</p>
-
 <table id=data></table>
 <script>
 const pv = 100000, pmt = 700, cp = 12, htm = [], nr = [['Bear', 20.5], ['Base', 28.9], ['Bull', 37.1]],
@@ -73,6 +72,7 @@ for (let c = 0; c < 3; c++) {
 			`<td>${(fv_annuity/fv_price).toFixed(2)}</td></tr>`].join(''));
 	}
 }
+// htm.push('<tr><td colspan=4><hr></td></tr>');
 document.getElementById('data').innerHTML = htm.join('\n');
 </script>
 </body></html>
