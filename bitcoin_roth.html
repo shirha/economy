@@ -175,13 +175,21 @@ United States (1921–).</p>
             y: {
               title: { display: true, text: 'Annuity / BTC Price (USD)' },
               beginAtZero: false,
-              position: 'left'
+              position: 'left',
+              ticks: {
+//                maxTicksLimit: 6, // Aim for ~6 ticks
+                stepSize: 5000000 // Ensure small, consistent BTC increments
+              }
             },
             y1: {
               title: { display: true, text: 'BTC Units' },
               beginAtZero: false,
               position: 'right',
-              grid: { drawOnChartArea: false }
+              grid: { drawOnChartArea: false },
+              ticks: {
+//                maxTicksLimit: 6, // Aim for ~6 ticks
+                stepSize: 0.01 // Ensure small, consistent BTC increments
+              }
             },
             x: {
               title: { display: true, text: 'Date' }
