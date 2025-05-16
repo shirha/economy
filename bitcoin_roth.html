@@ -7,16 +7,27 @@
   <title>Bitcoin Roth</title>
   <style>
     #container { max-width: 600px; margin: 0 auto; }
-    * { font-family: sans-serif; font-size: 12px; }
+    * { font-family: sans-serif; font-size: 13px; }
     td, th { text-align: right; padding-right: 8px; }
     table { width: 100%; border-collapse: collapse; }
-    canvas { margin-top: 20px; }
-		img { height: 12px; vertical-align: middle; }
-		a { text-decoration: none; }
-		t { font-variant: small-caps; }
-		i { font-family: serif; }
-		.hilite { background-color: #e6e6ff; }
-  </style>
+    img { height: 12px; vertical-align: middle; }
+    a { text-decoration: none; }
+    t { font-variant: small-caps; }
+    i { font-family: serif; }
+    .hilite { background-color: #e6e6ff; }
+
+    canvas {
+      margin-top: 20px;
+      width: 100% !important;
+    }
+/*
+    @media (max-width: 600px) {
+      canvas {
+        height: 500px !important; /* Taller on mobile */
+      }
+    }
+*/
+</style>
 </head>
 <body>
   <div id="container">
@@ -53,7 +64,7 @@ United States (1921–).</p>
 <li><a href="https://studio.glassnode.com/charts/6efab14b-d8ab-40a0-5be6-7549dfd04104" target="_blank">As the bitcoin price increases, the 4 year CAGR decreases.</a></li> 
 <li><a href="https://casebitcoin.com/charts" target="_blank">Notice that my Base / Bull case CAGR in my charts (CAGRs taken from Saylor's Bitcoin24 calculator) is quite conservative compared to the historic 'Bitcoin & Traditional Assets CAGR' chart</a></li></ul>
 <p>And finally the most important fact, that .2 of the .28 bitcoin accumulated in my Base case is in the first 4 year cycle (06/2029). I think the next 4 years is your last chance to buy bitcoin for under a million.</p>
-<p>Remember. If you don't continually study Bitcoin, you won't stay in the trade. There is no better asset to store your time and energy in than Bitcoin! It certainly isn't <a href="https://shirha.github.io/barter/junk_nickel.jpg" target="_blank">'fiat'</a>.</p>
+<p>Remember. If you don't continually study Bitcoin, you won't stay in the trade. There is no better asset to store your time and energy in than Bitcoin! It certainly is NOT <a href="https://shirha.github.io/barter/junk_nickel.jpg" target="_blank">'fiat'</a>.</p>
 
     <table id="data"></table>
     <canvas id="baseChart"></canvas>
@@ -70,7 +81,7 @@ United States (1921–).</p>
         { name: 'Bear', cagr: 20.5 },
         { name: 'Base', cagr: 28.9 },
         { name: 'Bull', cagr: 37.1 },
-        // { name: 'SuperNova', cagr: 45 }
+    //  { name: 'SuperNova', cagr: 45 }
       ],
       years: [1, 2, 3, 4, 5], // Years to calculate
       startYear: 2025
@@ -118,7 +129,8 @@ United States (1921–).</p>
       const db = {};
       
       CONFIG.scenarios.forEach((scenario, index) => {
-        if (index > 0) html.push('<tr><td colspan="4"><hr></td></tr>');
+        // if (index > 0) 
+          html.push('<tr><td colspan="4"><hr></td></tr>');
         db[scenario.cagr] = {};
         html.push(...generateTableRows(scenario));
         
@@ -135,12 +147,13 @@ United States (1921–).</p>
 
     // Render Chart.js chart for SuperBull scenario
     function renderChart(db) {
-      const superNovaData = db[CONFIG.scenarios[1].cagr];
+      const superNovaData = db[CONFIG.scenarios[3].cagr];
       const labels = CONFIG.years.map(year => `06/${CONFIG.startYear + year * 4}`);
       const prices = CONFIG.years.map(year => superNovaData[year * 48].price);
       const btcUnits = CONFIG.years.map(year => superNovaData[year * 48].btc);
       const annuities = CONFIG.years.map(year => superNovaData[year * 48].annuity);
 
+      // Chart.defaults.font.size = 10;
       new Chart(document.getElementById('baseChart'), {
         type: 'line',
         data: {
@@ -176,20 +189,20 @@ United States (1921–).</p>
               title: { display: true, text: 'Annuity / BTC Price (USD)' },
               beginAtZero: false,
               position: 'left',
-              ticks: {
-//                maxTicksLimit: 6, // Aim for ~6 ticks
-                stepSize: 5000000 // Ensure small, consistent BTC increments
-              }
+              // ticks: {
+              //   maxTicksLimit: 8, // Aim for ~6 ticks
+              //   // stepSize: 5000000 // Ensure small, consistent BTC increments
+              // }
             },
             y1: {
               title: { display: true, text: 'BTC Units' },
               beginAtZero: false,
               position: 'right',
               grid: { drawOnChartArea: false },
-              ticks: {
-//                maxTicksLimit: 6, // Aim for ~6 ticks
-                stepSize: 0.01 // Ensure small, consistent BTC increments
-              }
+              // ticks: {
+              //   // maxTicksLimit: 12, // Aim for ~6 ticks
+              //   stepSize: 0.01 // Ensure small, consistent BTC increments
+              // }
             },
             x: {
               title: { display: true, text: 'Date' }
@@ -201,7 +214,7 @@ United States (1921–).</p>
 
     // Main execution
     const db = renderTable();
-    renderChart(db);
+    // renderChart(db);
   </script>
 </body>
 </html>
