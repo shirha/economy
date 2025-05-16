@@ -7,7 +7,7 @@
   <title>Bitcoin Roth</title>
   <style>
     #container { max-width: 600px; margin: 0 auto; }
-    * { font-family: sans-serif; font-size: 13px; }
+    * { font-family: sans-serif; font-size: 12px; }
     td, th { text-align: right; padding-right: 8px; }
     table { width: 100%; border-collapse: collapse; }
     img { height: 12px; vertical-align: middle; }
@@ -106,7 +106,7 @@ United States (1921–).</p>
 
     // Generate HTML table rows for a scenario
     function generateTableRows(scenario) {
-      const rows = [`<tr><th colspan="4">${scenario.name}: ${scenario.cagr}% CAGR</th></tr>`];
+      const rows = [`<tr><th colspan="4"><span${scenario.name == 'Base' ? ' class="hilite"' : ''}>${scenario.name}: ${scenario.cagr}% CAGR</span></th></tr>`];
       rows.push('<tr><th>Date</th><th>Annuity</th><th>Price</th><th>BTC</th></tr>');
       
       CONFIG.years.forEach(year => {
@@ -115,7 +115,7 @@ United States (1921–).</p>
         const date = `06/${CONFIG.startYear + year * 4}`;
         rows.push([
           `<tr><td>${date}</td>`,
-          `<td${date == '06/2037' ? ' class="hilite"' : ''}>${formatter.format(annuity)}</td>`,
+          `<td><span${date == '06/2037' ? ' class="hilite"' : ''}>${formatter.format(annuity)}</span></td>`,
           `<td>${formatter.format(price)}</td>`,
           `<td>${btc.toFixed(3)}</td></tr>`
         ].join(''));
