@@ -49,10 +49,11 @@ United States (1921–).</p>
 <h3>YouTube</h3>
 <t>Macro Analyst</t> &mdash; <a href="https://www.youtube.com/watch?v=thiqZa7gVhw" target="_blank">Lyn Alden <img src="youtube_r.jpg"></a> <i>"Lyn explains macro in the simplest terms."</i>  &mdash; 
 <a href="https://www.lynalden.com/" target="_blank">LynAlden.com <img src="linkicon1.png"></a><br>
-<t>Bitcoin Maxi</t> &mdash; <a href="https://www.youtube.com/watch?v=pCYeq6R5JcU" target="_blank">Jack Maller <img src="youtube_r.jpg"></a> <i>"I wish I knew as much about money as Jack does when I was 30."</i><br>
-<t>Bitcoin OG</t> &mdash; <a href="https://www.youtube.com/watch?v=T34AYoCUA4w" target="_blank">Michael Saylor <img src="youtube_r.jpg"></a><br>
+<t>Bitcoin Maxi</t> &mdash; <a href="https://www.youtube.com/watch?v=pCYeq6R5JcU" target="_blank">Jack Maller <img src="youtube_r.jpg"></a> <i>"I wish I knew as much about money as Jack does when I was 30."</i>  &mdash; 
+<a href="https://www.youtube.com/@thejackmallersshow/streams" target="_blank">Live <img src="linkicon1.png"></a><br>
+<t>Bitcoin OG</t> &mdash; <a href="https://www.youtube.com/watch?v=T34AYoCUA4w" target="_blank">Michael Saylor <img src="youtube_r.jpg"></a> <i>"I'll be buying the top forever."</i> 𛲖&thinsp;ms<br>
 <!--t>PodCaster</t> &mdash; <a href="https://www.youtube.com/watch?v=hwz5S1rcZ6M" target="_blank">Natalie Brunell <img src="youtube_r.jpg"></a><br-->
-<t>MasterClass</t> &mdash; <a href="https://www.youtube.com/watch?v=d3L-qWUFh_k" target="_blank">Jeff Booth <img src="youtube_r.jpg"></a> <i>"Everything gets cheaper when priced in bitcoin."</i><br>
+<t>MasterClass</t> &mdash; <a href="https://www.youtube.com/watch?v=d3L-qWUFh_k" target="_blank">Jeff Booth <img src="youtube_r.jpg"></a> <i>"Everything gets cheaper when priced in bitcoin."</i> 𛲖&thinsp;jb<br>
 <t>GeoPolitics</t> &mdash; <a href="https://www.youtube.com/watch?v=DDNc5XvRiPM" target="_blank">Tom Luongo <img src="youtube_r.jpg"></a>
 
 <h3>Bitcoin Roth</h3>
@@ -64,7 +65,7 @@ United States (1921–).</p>
 <li><a href="https://studio.glassnode.com/charts/6efab14b-d8ab-40a0-5be6-7549dfd04104" target="_blank">As the bitcoin price increases, the 4 year CAGR decreases.</a></li> 
 <li><a href="https://casebitcoin.com/charts" target="_blank">Notice that my Base / Bull case CAGR in my charts (CAGRs taken from Saylor's Bitcoin24 calculator) is quite conservative compared to the historic 'Bitcoin & Traditional Assets CAGR' chart</a></li></ul>
 <p>And finally the most important fact, that .2 of the .28 bitcoin accumulated in my Base case is in the first 4 year cycle (06/2029). I think the next 4 years is your last chance to buy bitcoin for under a million.</p>
-<p>Remember. If you don't continually study Bitcoin, you won't stay in the trade. There is no better asset to store your time and energy in than Bitcoin! It certainly is NOT <a href="https://shirha.github.io/barter/junk_nickel.jpg" target="_blank">'fiat'</a>.</p>
+<p>Remember. If you don't continually study Bitcoin, you won't stay in the trade. There is no better asset to store your time and energy in than Bitcoin! It certainly is NOT <a href="https://shirha.github.io/barter/junk_nickel.jpg" target="_blank">"fiat"</a>.</p>
 
     <table id="data"></table>
     <canvas id="baseChart"></canvas>
@@ -147,7 +148,7 @@ United States (1921–).</p>
 
     // Render Chart.js chart for SuperBull scenario
     function renderChart(db) {
-      const superNovaData = db[CONFIG.scenarios[3].cagr];
+      const superNovaData = db[CONFIG.scenarios[1].cagr];
       const labels = CONFIG.years.map(year => `06/${CONFIG.startYear + year * 4}`);
       const prices = CONFIG.years.map(year => superNovaData[year * 48].price);
       const btcUnits = CONFIG.years.map(year => superNovaData[year * 48].btc);
@@ -214,7 +215,7 @@ United States (1921–).</p>
 
     // Main execution
     const db = renderTable();
-    // renderChart(db);
+    renderChart(db);
   </script>
 </body>
 </html>
