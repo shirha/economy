@@ -12,21 +12,21 @@
     table { width: 100%; border-collapse: collapse; }
     img { height: 12px; vertical-align: middle; }
     a { text-decoration: none; }
+    a:link, a:visited {color: #0000ee;}
     t { font-variant: small-caps; }
     i { font-family: serif; }
     .hilite { background-color: #e6e6ff; }
 
     canvas {
       margin-top: 20px;
-      width: 100% !important;
+      width: 100%; /* !important; */
     }
-/*
     @media (max-width: 600px) {
       canvas {
-        height: 500px !important; /* Taller on mobile */
+        display: none !important;
+    /*  height: 500px !important; /* Taller on mobile */
       }
     }
-*/
 </style></head><body><div id="container">
 <h3>Monetary Reset</h3>
 <p>« Since 1450 there have been six major world reserve currency periods.</p>
@@ -211,7 +211,7 @@ United States (1921–).</p>
 
     // Main execution
     const db = renderTable();
-    // renderChart(db);
+    renderChart(db);
   </script>
 </body>
 </html>
