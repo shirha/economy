@@ -10,11 +10,17 @@
             font-family: Lora; 
             src: url("Lora-Regular.ttf");}
         body {font-family: Lora;}
-        table, p { margin: 1em 1em 2em;}
-        td, th {border: #ddd solid 1px; padding: 8px 16px; border-radius: 4px;}
+        table, p, #tvm-calc { margin: 1em 1em 2em;}
+        td, th, #tvm-calc, #pv, #results {border: #ddd solid 1px; border-radius: 4px;}
+        td, th {padding: 8px 16px;}
         th:nth-child(2), td:nth-child(2) {text-align: right;}
-        tr:nth-child(6), tr:nth-child(10) {font-weight: bold;}
+        tr:nth-child(6), tr:nth-child(10), #cagr, #mult-val, #fv {font-weight: bold;}
         p {width: 300px;}
+        #tvm-calc {padding: 20px; border-radius: 4px; max-width: 270px;}
+        #pv {outline: none; width: 92%; font-size: 1em; padding: 8px; margin: 2px;}
+        #multiple {outline: none; width: 85%;}
+        #fv {font-size: 1.5em; color: #0078d4;}
+        #results {background: #e8effc; padding: 10px; border-radius: 4px;}
     </style>
 </head>
 <body>
@@ -31,7 +37,7 @@ is 25.9%.</p>
 
 <p>If you invest a $1 and it doubles in 3 years the CAGR is 26%. 
 This mean an investment that doubles every three year will 10x 
-ever 10 years. Here is that schedule.</p>
+over 10 years. Here is that schedule.</p>
 
 <table>
     <tr>
@@ -79,6 +85,48 @@ ever 10 years. Here is that schedule.</p>
         <td>128</td>
     </tr>
 </table>
+
+<div id="tvm-calc">
+    <h3 style="margin-top:0;">BTC TVM Calculator</h3>
+    
+    <label>Initial Investment ($)</label><br>
+    <input type="number" id="pv" value="100000"><br><br>
+
+    <label>Expected 10-Year Multiple (e.g., 10x)</label><br>
+    <input type="range" id="multiple" min="2" max="20" value="10" autofocus>
+    <span id="mult-val">x</span><br><br>
+
+    <div id="results">
+        <strong>Result in 10 Years:</strong><br>
+        <span id="fv">$</span><br>
+        <label>Required CAGR:</label> <span id="cagr">%</span>
+    </div>
+</div>
+
+<script>
+const pvInput = document.getElementById('pv');
+const multInput = document.getElementById('multiple');
+const multVal = document.getElementById('mult-val');
+const fvDisplay = document.getElementById('fv');
+const cagrDisplay = document.getElementById('cagr');
+
+function updateCalc() {
+    const pv = parseFloat(pvInput.value);
+    const mult = parseFloat(multInput.value);
+    const fv = pv * mult;
+    
+    // CAGR Formula: ((FV/PV)^(1/n)) - 1
+    const cagr = (Math.pow(mult, 1/10) - 1) * 100;
+
+    multVal.innerText = mult + 'x';
+    fvDisplay.innerText = '$' + fv.toLocaleString();
+    cagrDisplay.innerText = cagr.toFixed(1) + '%';
+}
+
+pvInput.addEventListener('input', updateCalc);
+multInput.addEventListener('input', updateCalc);
+updateCalc();
+</script>
 
 </body>
 </html>
