@@ -9,7 +9,7 @@
         @font-face {
             font-family: Lora; 
             src: url("Lora-Regular.ttf");}
-        body {font-family: Lora;}
+        body {font-family: Lora; margin-bottom: 400px;}
         table, p, #tvm-calc { margin: 1em 1em 2em;}
         td, th, #tvm-calc, #pv, #results {border: #ddd solid 1px; border-radius: 4px;}
         td, th {padding: 8px 16px;}
@@ -36,8 +36,8 @@ is 25.9%.</p>
 <img src="bitcoin%2010x%20cagr_html_67676af3.gif"/>
 
 <p>If you invest a $1 and it doubles in 3 years the CAGR is 26%. 
-This mean an investment that doubles every three year will 10x 
-over 10 years. Here is that schedule.</p>
+This mean <b>an investment that doubles every three year will 10x 
+over 10 years.</b> Here is that schedule.</p>
 
 <table>
     <tr>
@@ -102,6 +102,13 @@ over 10 years. Here is that schedule.</p>
         <label>Required CAGR:</label> <span id="cagr">%</span>
     </div>
 </div>
+
+<p>Notice that when you put the slider at <b>2x</b>, the CAGR of <b>7.2%</b> is the same
+as the <a href="https://www.investopedia.com/terms/r/ruleof72.asp" 
+target="_blank">Rule of 72</a> divided by 10 years equals 7.2%. While I was
+working, I only invested in the S&P 500 trying to get my 401k to grow at 10%,
+or double every 7.2 years. Hopefully, even a <b>3x</b> in 10 years (<b>11.6%</b>). Of course now
+that won't even keep up with inflation.</p>
 
 <script>
 const pvInput = document.getElementById('pv');
